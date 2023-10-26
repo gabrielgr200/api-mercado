@@ -24,10 +24,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/produtos', (req, res) => {
-  const { name, quantity_item, shelfs_sections, code_bar } = req.body;
+  const { name, quantity_item, shelfs, sections, code_bar } = req.body;
 
-  const sql = 'INSERT INTO products (name, quantity_item, shelfs_sections, code_bar) VALUES (?, ?, ?, ?)';
-  db.query(sql, [name, quantity_item, shelfs_sections, code_bar], (err, result) => {
+  const sql = 'INSERT INTO products (name, quantity_item, shelfs, sections, code_bar) VALUES (?, ?, ?, ?, ?)';
+  db.query(sql, [name, quantity_item, shelfs, sections, code_bar], (err, result) => {
     if (err) {
       console.error('Erro ao inserir produto:', err);
       res.status(500).json({ error: 'Erro ao inserir produto' });
@@ -68,11 +68,11 @@ app.get('/produtos/:id', (req, res) => {
 
 app.put('/produtos/:id', (req, res) => {
   const productId = req.params.id;
-  const { name, quantity_item, shelfs_sections, code_bar } = req.body;
+  const { name, quantity_item, shelfs, sections, code_bar } = req.body;
 
-  const sql = 'UPDATE products SET name = ?, quantity_item = ?, shelfs_sections = ?, code_bar = ? WHERE id = ?';
+  const sql = 'UPDATE products SET name = ?, quantity_item = ?, shelfs = ?, sections = ?, code_bar = ? WHERE id = ?';
 
-  db.query(sql, [name, quantity_item, shelfs_sections, code_bar, productId], (err, result) => {
+  db.query(sql, [name, quantity_item, shelfs, sections, code_bar, productId], (err, result) => {
     if (err) {
       console.error('Erro ao atualizar produto:', err);
       res.status(500).json({ error: 'Erro ao atualizar produto' });
